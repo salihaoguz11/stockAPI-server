@@ -138,6 +138,7 @@ modeul.exports = {
         */
 
     // Permission tarafında permissions.isAdmin kontrolü yapıldığı için burda gerek kalmadı.
+
     if (req.params.id != req.user._id) {
       const data = await User.deleteOne({ _id: req.params.id });
 
