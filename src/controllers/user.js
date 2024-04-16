@@ -7,7 +7,7 @@ const User = require("../models/user");
 const Token = require("../models/token");
 const passwordEncrypt = require("../helpers/passwordEncrypt");
 
-modeul.exports = {
+module.exports = {
   list: async (req, res) => {
     /*
             #swagger.tags = ["Users"]

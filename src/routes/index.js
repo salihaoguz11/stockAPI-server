@@ -1,8 +1,8 @@
-"use strict"
+"use strict";
 /* -------------------------------------------------------
     NODEJS EXPRESS | CLARUSWAY FullStack Team
 ------------------------------------------------------- */
-const router = require('express').Router()
+const router = require("express").Router();
 /* ------------------------------------------------------- */
 // routes/:
 
@@ -11,10 +11,9 @@ const router = require('express').Router()
 // // auth:
 // router.use('/auth', require('./auth'))
 // // user:
-// router.use('/users', require('./user'))
+router.use("/users", require("./user"));
 // // token:
-// router.use('/tokens', require('./token'))
-
+router.use("/tokens", require("./token"));
 
 // // brand:
 // router.use('/brands', require('./brand'))
@@ -30,7 +29,7 @@ const router = require('express').Router()
 // router.use('/sales', require('./sale'))
 
 // document:
-router.use('/documents', require('./document'))
+router.use("/documents", require("./document"));
 
 /* ------------------------------------------------------- */
-module.exports = router
+module.exports = router;
