@@ -22,9 +22,9 @@ router.use("/categories", require("./category"));
 // // firm:
 router.use("/firms", require("./firm"));
 // // product:
-// router.use('/products', require('./product'))
+router.use("/products", require("./product"));
 // // purchase:
-// router.use('/purchases', require('./purchase'))
+router.use("/purchases", require("./purchase"));
 // // sale:
 // router.use('/sales', require('./sale'))
 
