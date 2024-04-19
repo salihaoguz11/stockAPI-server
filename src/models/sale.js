@@ -57,4 +57,4 @@ const SaleSchema = new mongoose.Schema(
 
 /* ------------------------------------------------------- */
 
-modeule.exports = mongoose.model("Sale", SaleSchema);
+module.exports = mongoose.model("Sale", SaleSchema);

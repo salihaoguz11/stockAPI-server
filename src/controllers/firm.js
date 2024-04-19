@@ -58,7 +58,7 @@ module.exports = {
         #swagger.summary = "Get Single Firm"
     */
 
-    console.log("read run");
+    // console.log("read run");
 
     if (req.params?.id) {
       // Single:

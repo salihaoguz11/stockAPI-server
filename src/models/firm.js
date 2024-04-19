@@ -4,7 +4,7 @@
 ------------------------------------------------------- */
 const { mongoose } = require("../configs/dbConnection");
 /* ------------------------------------------------------- */
-// Firm Model:
+// Firm Model: tedarikci firmalar
 
 const FirmSchema = new mongoose.Schema(
   {
