@@ -27,7 +27,7 @@ module.exports = {
       { path: "userId", select: "username email" },
       { path: "firmId", select: "name image" },
       "brandId",
-      { path: "productId", select: "name", populate: { path: "categoryId" } },
+      { path: "productId", select: "name", populate: { path: "categoryId" } }, // nested populate yaptik.
     ]);
 
     res.status(200).send({
@@ -55,11 +55,19 @@ module.exports = {
     // Create:
     const data = await Purchase.create(req.body);
 
+    // Satınalma sonrası güncel stok adedini arttır:
+    // const updateProduct = await Product.updateOne({ _id: req.body.productId }, { $inc: { quantity: req.body.quantity } })
+    const updateProduct = await Product.updateOne(
+      { _id: data.productId },
+      { $inc: { quantity: +data.quantity } }
+    );
+
     res.status(201).send({
       error: false,
       data,
     });
   },
+
   read: async (req, res) => {
     /*
         #swagger.tags = ["Purchases"]
@@ -111,6 +119,18 @@ module.exports = {
             }
         */
 
+    if (req.body?.quantity) {
+      // mevcut adet bilgisini al:
+      const currentPurchase = await Purchase.findOne({ _id: req.params.id });
+      // farkı bul:
+      const difference = req.body.quantity - currentPurchase.quantity;
+      // farkı Product'a kaydet:
+      const updateProduct = await Product.updateOne(
+        { _id: currentPurchase.productId },
+        { $inc: { quantity: +difference } }
+      );
+    }
+
     // Update:
     const data = await Purchase.updateOne({ _id: req.params.id }, req.body, {
       runValidators: true,
@@ -128,9 +148,17 @@ module.exports = {
             #swagger.tags = ["Purchases"]
             #swagger.summary = "Delete Purchase"
         */
+    // mevcut adet bilgisini al:
+    const currentPurchase = await Purchase.findOne({ _id: req.params.id });
 
     // Delete:
     const data = await Purchase.deleteOne({ _id: req.params.id });
+
+    // Adeti Product'dan eksilt:
+    await Product.updateOne(
+      { _id: currentPurchase.productId },
+      { $inc: { quantity: -currentPurchase.quantity } }
+    );
 
     res.status(data.deletedCount ? 204 : 404).send({
       error: !data.deletedCount,
