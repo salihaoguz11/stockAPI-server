@@ -10,11 +10,12 @@ const app = express();
 // Required Modules:
 
 // Use cors middleware
-app.use(cors("https://stock-app-delta-two.vercel.app"));
+app.use(cors());
 
 // envVariables to process.env:
 require("dotenv").config();
-const HOST = process.env?.HOST || "127.0.0.1";
+// const HOST = process.env?.HOST || "127.0.0.1";
+const HOST = "0.0.0.0";
 const PORT = process.env?.PORT || 8000;
 
 // asyncErrors to errorHandler:
