@@ -10,7 +10,7 @@ const app = express();
 // Required Modules:
 
 // Use cors middleware
-app.use(cors());
+app.use(cors({ origin: "https://stock-app-delta-two.vercel.app" }));
 
 // envVariables to process.env:
 require("dotenv").config();
