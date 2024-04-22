@@ -3,10 +3,14 @@
     NODEJS EXPRESS | CLARUSWAY FullStack Team
 ------------------------------------------------------- */
 const express = require("express");
+const cors = require("cors");
 const app = express();
 
 /* ------------------------------------------------------- */
 // Required Modules:
+
+// Use cors middleware
+app.use(cors("https://stock-app-delta-two.vercel.app"));
 
 // envVariables to process.env:
 require("dotenv").config();
