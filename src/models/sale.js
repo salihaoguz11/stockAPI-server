@@ -56,5 +56,33 @@ const SaleSchema = new mongoose.Schema(
 );
 
 /* ------------------------------------------------------- */
+// https://mongoosejs.com/docs/middleware.html
+// pre('init') -> Ekrana veriyi vermeden önce veriyi (çıktıyı) manipule edebiliriz:
+// middleware değil, next gerek yok:
+//pre-init populate oncesi calisir.
+
+SaleSchema.pre("init", function (document) {
+  //document cikan datayi temsil eder.
+  // console.log(document)
+
+  document.extraField = "Saliha";
+  document.__v = undefined;
+
+  // toLocaleDateString:
+  // https://www.w3schools.com/jsref/jsref_tolocalestring.asp
+  document.createdAtStr = document.createdAt.toLocaleString("en-en", {
+    dateStyle: "full",
+    timeStyle: "medium",
+  });
+  document.updatedAtStr = document.updatedAt.toLocaleString("tr-tr", {
+    dateStyle: "full",
+    timeStyle: "medium",
+  });
+  //updatedAtStr seklinde yazabilirim. Diger turlu direk uzerine yazmiyor(createdAt) calismaz.
+  // document.createdAt = undefined
+  // document.updatedAt = undefined
+});
+
+/* ------------------------------------------------------- */
 
 module.exports = mongoose.model("Sale", SaleSchema);
