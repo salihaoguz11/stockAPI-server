@@ -144,6 +144,17 @@ UserSchema.pre(["save", "updateOne"], function (next) {
     next(new Error("Email is not validated."));
   }
 });
+/* ------------------------------------------------------- */
+//? Schema Configs:
+//Burada modelde veri icerisinde ki password verisini silip gondermek icin
+//bu sekilde bir method kullandik.
+//login isleminde password validate yapiliuyor o sebeple bu sekilde extra bir islem yapmak zorunda kaldik.
+UserSchema.methods.toJSON = function () {
+  let obj = this.toObject();
+  // console.log(obj);
+  delete obj.password;
+  return obj;
+};
 
 /* ------------------------------------------------------- */
 // Exports:

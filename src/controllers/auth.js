@@ -29,6 +29,7 @@ module.exports = {
 
     if ((username || email) && password) {
       const user = await User.findOne({ $or: [{ username }, { email }] });
+      const withoutPassword = user.toJSON();
 
       if (user && user.password == passwordEncrypt(password)) {
         if (user.isActive) {
@@ -68,7 +69,7 @@ module.exports = {
           error: false,
           token: tokenData.token,
           bearer: { accessToken, refreshToken },
-          user,
+          user: withoutPassword,
         });
       } else {
         res.errorStatusCode = 401;
